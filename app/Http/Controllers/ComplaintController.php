@@ -4,19 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Complaint;
+use Illuminate\Support\Facades\Storage;
 
 class ComplaintController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $complaints = Complaint::with('user')->get();
+        // Admin bisa lihat semua, Warga hanya lihat miliknya
+        if ($request->user()->role === 'admin') {
+            $complaints = Complaint::with('user')->get();
+        } else {
+            $complaints = Complaint::where('user_id', $request->user()->id)->get();
+        }
 
         return response()->json([
             'success' => true,
-            'message' => 'Daftar Semua Pengaduan Warga',
+            'message' => 'Daftar Pengaduan',
             'data' => $complaints
         ], 200);
     }
@@ -27,15 +33,21 @@ class ComplaintController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
             'title' => 'required|string|max:255',
-            'description' => 'required|string'
+            'description' => 'required|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048' // Max 2MB
         ]);
 
+        $photoPath = null;
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('complaints', 'public');
+        }
+
         $complaint = Complaint::create([
-            'user_id' => $request->user_id,
+            'user_id' => $request->user()->id,
             'title' => $request->title,
             'description' => $request->description,
+            'photo' => $photoPath,
             'status' => 'pending'
         ]);
 
@@ -49,13 +61,23 @@ class ComplaintController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
-        //
+        $complaint = Complaint::with('user')->findOrFail($id);
+
+        if ($request->user()->role !== 'admin' && $complaint->user_id !== $request->user()->id) {
+            return response()->json(['success' => false, 'message' => 'Akses ditolak'], 403);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $complaint
+        ], 200);
     }
 
     /**
      * Update the specified resource in storage.
+     * (Admin Only)
      */
     public function update(Request $request, string $id)
     {
@@ -88,6 +110,18 @@ class ComplaintController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $complaint = Complaint::find($id);
+
+        if (!$complaint) {
+            return response()->json(['success' => false, 'message' => 'Data tidak ditemukan'], 404);
+        }
+
+        if ($complaint->photo) {
+            Storage::disk('public')->delete($complaint->photo);
+        }
+
+        $complaint->delete();
+
+        return response()->json(['success' => true, 'message' => 'Pengaduan dihapus'], 200);
     }
 }

@@ -16,10 +16,7 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, string $role): Response
     {
         if (!$request->user() || $request->user()->role !== $role) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Akses ditolak. Anda tidak memiliki izin untuk resource ini.',
-            ], 403);
+            abort(403, 'Akses ditolak.');
         }
 
         return $next($request);

@@ -16,5 +16,6 @@ export default defineConfig({
                 manualChunks: undefined,
             }
         }
-    }
+    },
+    base: process.env.ASSET_URL || '/'
 });

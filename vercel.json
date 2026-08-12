@@ -1,6 +1,7 @@
 {
     "version": 2,
     "framework": null,
+    "buildCommand": "npm install && npm run build",
     "builds": [
         {
             "src": "api/index.php",
@@ -13,6 +14,10 @@
     ],
     "routes": [
         { "handle": "filesystem" },
+        {
+            "src": "/build/(.*)",
+            "dest": "/public/build/$1"
+        },
         {
             "src": "/(.*)",
             "dest": "/api/index.php"
@@ -27,6 +32,7 @@
         "APP_SERVICES_CACHE": "/tmp/services.php",
         "VIEW_COMPILED_PATH": "/tmp",
         "CACHE_DRIVER": "array",
-        "LOG_CHANNEL": "stderr"
+        "LOG_CHANNEL": "stderr",
+        "ASSET_URL": "/"
     }
 }

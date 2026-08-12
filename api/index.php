@@ -1,12 +1,14 @@
 <?php
 
-// Forward static file requests to public directory
-if (file_exists(__DIR__ . '/../public' . $_SERVER['REQUEST_URI'])) {
+// Serve static assets directly from public/ if requested
+$uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+
+if ($uri !== '/' && file_exists(__DIR__ . '/../public' . $uri)) {
     return false;
 }
 
-// Ensure storage directories exist in serverless environment (/tmp)
-$storageDirs = [
+// Ensure storage & cache directories exist in /tmp for serverless
+$dirs = [
     '/tmp/storage/app/public',
     '/tmp/storage/framework/views',
     '/tmp/storage/framework/cache/data',
@@ -15,13 +17,12 @@ $storageDirs = [
     '/tmp/bootstrap/cache',
 ];
 
-foreach ($storageDirs as $dir) {
+foreach ($dirs as $dir) {
     if (!is_dir($dir)) {
-        mkdir($dir, 0755, true);
+        @mkdir($dir, 0755, true);
     }
 }
 
-// Redirect storage path to /tmp for serverless execution
 putenv('APP_SERVICES_CACHE=/tmp/bootstrap/cache/services.php');
 putenv('APP_PACKAGES_CACHE=/tmp/bootstrap/cache/packages.php');
 putenv('APP_CONFIG_CACHE=/tmp/bootstrap/cache/config.php');

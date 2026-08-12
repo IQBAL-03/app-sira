@@ -1,0 +1,3 @@
+# Pastikan build assets tidak di-ignore
+!public/build
+!public/build/**

@@ -22,5 +22,8 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') === 'production') {
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
+
+        // Set custom Vite manifest path for production
+        \Illuminate\Support\Facades\Vite::useManifestFilename('.vite/manifest.json');
     }
 }

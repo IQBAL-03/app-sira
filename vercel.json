@@ -25,22 +25,8 @@
         }
     ],
     "env": {
-        "APP_NAME": "SIRA",
         "APP_ENV": "production",
-        "APP_KEY": "base64:o0OtVIcP+MaadLbHoAKP32V8jlTjmWPWoCp9q6tNpss=",
         "APP_DEBUG": "true",
-        "APP_URL": "https://app-sira-one.vercel.app",
-        "APP_LOCALE": "id",
-        "APP_FALLBACK_LOCALE": "en",
-        "APP_STORAGE": "/tmp",
-        "LOG_CHANNEL": "stderr",
-        "DB_CONNECTION": "mysql",
-        "DB_HOST": "aiqblprojects-22032009-muhamadiqbal9871-995e.b.aivencloud.com",
-        "DB_PORT": "27642",
-        "DB_DATABASE": "defaultdb",
-        "DB_USERNAME": "avnadmin",
-        "DB_PASSWORD": "AVNS_QhUXIwpb93_k_hAyuet",
-        "SESSION_DRIVER": "cookie",
-        "CACHE_STORE": "array"
+        "APP_STORAGE": "/tmp"
     }
 }

@@ -16,7 +16,8 @@ class WargaController extends Controller
 
     public function verify(User $user)
     {
-        $user->update(['is_verified' => !$user->is_verified]);
+        $user->is_verified = !$user->is_verified;
+        $user->save();
         $msg = $user->is_verified ? 'Akun warga berhasil diverifikasi.' : 'Verifikasi akun warga dibatalkan.';
         return back()->with('success', $msg);
     }

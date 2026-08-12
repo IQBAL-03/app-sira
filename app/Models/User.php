@@ -11,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-#[Fillable(['name', 'nik', 'email', 'phone', 'address', 'password'])]
+#[Fillable(['name', 'nik', 'email', 'phone', 'address', 'role', 'is_verified', 'password'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -28,16 +28,27 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_verified' => 'boolean',
         ];
     }
 
     public function complaints(){
-        return $this-> hasMany(Complaint::class);
+        return $this->hasMany(Complaint::class);
     }
     public function letterRequest(){
         return $this->hasMany(LetterRequest::class);
     }
     public function due(){
         return $this->hasMany(Due::class);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\ResetPasswordNotification($token));
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new \App\Notifications\VerifyEmailNotification);
     }
 }

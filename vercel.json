@@ -4,6 +4,10 @@
         {
             "src": "api/index.php",
             "use": "vercel-php@0.9.0"
+        },
+        {
+            "src": "public/**",
+            "use": "@vercel/static"
         }
     ],
     "routes": [
@@ -16,8 +20,8 @@
             "dest": "/public/build/$1"
         },
         {
-            "src": "/(css|js|images|fonts)/(.*)",
-            "dest": "/public/$1/$2"
+            "src": "/(favicon.ico|robots.txt)",
+            "dest": "/public/$1"
         },
         {
             "src": "/(.*\\.(css|js|json|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
@@ -38,13 +42,7 @@
         "APP_SERVICES_CACHE": "/tmp/services.php",
         "VIEW_COMPILED_PATH": "/tmp",
         "CACHE_DRIVER": "array",
-        "SESSION_DRIVER": "array",
+        "SESSION_DRIVER": "cookie",
         "LOG_CHANNEL": "stderr"
-    },
-    "functions": {
-        "api/index.php": {
-            "runtime": "vercel-php@0.9.0",
-            "includeFiles": "public/build/**"
-        }
     }
 }

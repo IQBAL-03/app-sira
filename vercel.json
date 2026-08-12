@@ -1,7 +1,5 @@
 {
     "version": 2,
-    "outputDirectory": "public",
-    "buildCommand": "php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
     "functions": {
         "api/index.php": {
             "runtime": "vercel-php@0.7.2"
@@ -10,15 +8,15 @@
     "routes": [
         {
             "src": "/build/assets/(.*)",
-            "dest": "/build/assets/$1"
+            "dest": "/public/build/assets/$1"
         },
         {
-            "src": "/build/manifest.json",
-            "dest": "/build/manifest.json"
+            "src": "/build/manifest\\.json",
+            "dest": "/public/build/manifest.json"
         },
         {
-            "src": "/(favicon\\.ico|favicon\\.png|robots\\.txt|logo\\.png)",
-            "dest": "/$1"
+            "src": "/(favicon\\.ico|favicon\\.png|robots\\.txt)",
+            "dest": "/public/$1"
         },
         {
             "src": "/(.*)",

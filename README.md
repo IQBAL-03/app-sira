@@ -1,58 +1,230 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SIRA - Sistem Informasi RT/RW
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<img src="https://img.shields.io/badge/Laravel-11.x-red?logo=laravel" alt="Laravel Version">
+<img src="https://img.shields.io/badge/PHP-8.2+-blue?logo=php" alt="PHP Version">
+<img src="https://img.shields.io/badge/TailwindCSS-3.x-06B6D4?logo=tailwindcss" alt="Tailwind CSS">
+<img src="https://img.shields.io/badge/Alpine.js-3.x-8BC0D0?logo=alpine.js" alt="Alpine.js">
 </p>
 
-## About Laravel
+## Tentang SIRA
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+SIRA (Sistem Informasi RT/RW) adalah aplikasi web modern yang dirancang untuk memudahkan pengelolaan administrasi RT/RW. Aplikasi ini menyediakan platform digital untuk mengelola data warga, pengajuan surat, pengaduan, dan iuran bulanan secara efisien dan terstruktur.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Fitur Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#### 👤 Untuk Admin RT/RW
+- **Dashboard Admin** - Ringkasan data dan statistik warga
+- **Manajemen Data Warga** - CRUD data warga dengan verifikasi akun
+- **Pengelolaan Surat Pengantar** - Review dan approve pengajuan surat warga
+- **Manajemen Pengaduan** - Kelola pengaduan warga dengan update status
+- **Iuran Bulanan** - Monitor dan kelola pembayaran iuran warga
 
-## Learning Laravel
+#### 🏠 Untuk Warga
+- **Dashboard Warga** - Informasi personal dan status layanan
+- **Pengajuan Surat** - Ajukan surat pengantar secara online
+- **Pengaduan** - Laporkan keluhan atau masalah di lingkungan RT/RW
+- **Iuran Bulanan** - Cek dan bayar iuran bulanan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Teknologi yang Digunakan
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Backend**: Laravel 11.x dengan PHP 8.2+
+- **Frontend**: Blade Templates dengan TailwindCSS
+- **JavaScript**: Alpine.js untuk interaktivitas
+- **Database**: SQLite (dapat diganti MySQL/PostgreSQL)
+- **Authentication**: Laravel Breeze
+- **Email**: Mailtrap untuk development
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### Fitur Responsif
 
-## Agentic Development
+Aplikasi ini sepenuhnya responsif dengan:
+- ✅ Hamburger menu untuk navigasi mobile
+- ✅ Sidebar yang dapat dibuka/tutup di layar kecil
+- ✅ Overlay backdrop untuk UX yang lebih baik
+- ✅ Layout adaptif untuk tablet dan desktop
+- ✅ Touch-friendly interface
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Instalasi
 
+### Prasyarat
+- PHP >= 8.2
+- Composer
+- Node.js & NPM
+- SQLite/MySQL/PostgreSQL
+
+### Langkah Instalasi
+
+1. **Clone Repository**
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone <repository-url>
+cd SIRA
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+2. **Install Dependencies**
+```bash
+composer install
+npm install
+```
 
-## Contributing
+3. **Konfigurasi Environment**
+```bash
+copy .env.example .env
+php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. **Konfigurasi Database**
 
-## Code of Conduct
+Edit file `.env` dan sesuaikan konfigurasi database:
+```env
+DB_CONNECTION=sqlite
+# atau untuk MySQL
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=sira
+# DB_USERNAME=root
+# DB_PASSWORD=
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+5. **Konfigurasi Email (Mailtrap)**
 
-## Security Vulnerabilities
+Edit file `.env` untuk konfigurasi email:
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=your_mailtrap_username
+MAIL_PASSWORD=your_mailtrap_password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=noreply@sira.test
+MAIL_FROM_NAME="${APP_NAME}"
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6. **Jalankan Migration dan Seeder**
+```bash
+php artisan migrate --seed
+```
 
-## License
+7. **Build Assets**
+```bash
+npm run build
+# atau untuk development
+npm run dev
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+8. **Jalankan Server**
+```bash
+php artisan serve
+```
+
+Aplikasi akan berjalan di `http://localhost:8000`
+
+## Akun Default
+
+Setelah menjalankan seeder, Anda dapat login dengan:
+
+### Admin
+- Email: `admin@gmail.com`
+- Password: `Admin123`
+
+
+## Struktur Aplikasi
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Admin/          # Controller untuk admin
+│   │   ├── Warga/          # Controller untuk warga
+│   │   └── Auth/           # Authentication controllers
+│   └── Middleware/         # Custom middleware (Role, VerifiedWarga)
+├── Models/                 # Eloquent models
+├── Notifications/          # Email notifications
+└── View/Components/        # Blade components
+
+resources/
+├── views/
+│   ├── admin/             # Views untuk admin
+│   ├── warga/             # Views untuk warga
+│   ├── auth/              # Authentication views
+│   ├── layouts/           # Layout templates (sidebar, topbar, app)
+│   └── components/        # Reusable components
+├── css/
+└── js/
+
+database/
+├── migrations/            # Database migrations
+└── seeders/              # Database seeders
+```
+
+## Development
+
+### Menjalankan Development Server
+
+```bash
+# Terminal 1 - Laravel development server
+php artisan serve
+
+# Terminal 2 - Vite development server
+npm run dev
+```
+
+### Build untuk Production
+
+```bash
+npm run build
+```
+
+### Membuat Migration Baru
+
+```bash
+php artisan make:migration create_table_name
+php artisan migrate
+```
+
+### Membuat Controller Baru
+
+```bash
+# Resource controller
+php artisan make:controller ControllerName --resource
+
+# Controller untuk admin
+php artisan make:controller Admin/ControllerName
+```
+
+## Deployment
+
+Aplikasi ini dapat di-deploy ke:
+- **Vercel** (sudah termasuk konfigurasi `vercel.json`)
+- **Shared Hosting** (sudah termasuk `api/index.php` untuk hosting PHP)
+- **VPS/Cloud** (DigitalOcean, AWS, Google Cloud, dll)
+
+### Deploy ke Vercel
+
+1. Pastikan Anda sudah install Vercel CLI
+```bash
+npm i -g vercel
+```
+
+2. Deploy
+```bash
+vercel
+```
+
+3. Set environment variables di Vercel dashboard
+
+## Kontribusi
+
+Kontribusi selalu diterima! Silakan buat pull request atau laporkan issue yang Anda temukan.
+
+## Lisensi
+
+Aplikasi ini menggunakan framework Laravel yang berlisensi [MIT license](https://opensource.org/licenses/MIT).
+
+## Kontak & Support
+
+Jika Anda memiliki pertanyaan atau butuh bantuan, silakan buat issue di repository ini.
+
+---
+
+**Dibuat dengan ❤️ menggunakan Laravel & TailwindCSS**

@@ -1,5 +1,20 @@
 @php $user = auth()->user(); @endphp
-<aside class="w-64 bg-red-600 text-white flex flex-col shadow-xl flex-shrink-0 min-h-screen">
+
+<!-- Mobile Overlay -->
+<div x-show="sidebarOpen" 
+     x-transition:enter="transition-opacity ease-linear duration-300"
+     x-transition:enter-start="opacity-0"
+     x-transition:enter-end="opacity-100"
+     x-transition:leave="transition-opacity ease-linear duration-300"
+     x-transition:leave-start="opacity-100"
+     x-transition:leave-end="opacity-0"
+     @click="sidebarOpen = false"
+     class="fixed inset-0 bg-black/50 z-40 lg:hidden"
+     style="display: none;"></div>
+
+<!-- Sidebar -->
+<aside class="w-64 bg-red-600 text-white flex flex-col shadow-xl flex-shrink-0 min-h-screen fixed lg:static inset-y-0 left-0 z-50 transform transition-transform duration-300 lg:translate-x-0"
+       :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
     <div class="px-6 py-5 border-b border-red-500">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">

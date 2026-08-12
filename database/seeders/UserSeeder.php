@@ -14,7 +14,6 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Admin
         User::create([
             'nik' => '1234567890123456',
             'name' => 'Admin',
@@ -24,18 +23,6 @@ class UserSeeder extends Seeder
             'role' => 'admin',
             'is_verified' => true,
             'password' => Hash::make('Admin123')
-        ]);
-
-        // Warga - Rin
-        User::create([
-            'nik' => '3276051234567890',
-            'name' => 'Rin',
-            'email' => 'rin@gmail.com',
-            'phone' => '081234567890',
-            'address' => 'Rt 01 / Rw 03',
-            'role' => 'warga',
-            'is_verified' => true,
-            'password' => Hash::make('Rin12345')
         ]);
     }
 }

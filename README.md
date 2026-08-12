@@ -56,8 +56,8 @@ Aplikasi ini sepenuhnya responsif dengan:
 
 1. **Clone Repository**
 ```bash
-git clone <repository-url>
-cd SIRA
+git clone https://github.com/IQBAL-03/app-sira.git
+cd app-sira
 ```
 
 2. **Install Dependencies**

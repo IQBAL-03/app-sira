@@ -36,6 +36,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
 
     Route::get('/pengaduan', [AdminComplaintController::class, 'index'])->name('pengaduan.index');
     Route::patch('/pengaduan/{complaint}/status', [AdminComplaintController::class, 'updateStatus'])->name('pengaduan.status');
+    Route::get('/pengaduan/export', [AdminComplaintController::class, 'export'])->name('pengaduan.export');
 
     Route::get('/iuran', [AdminDueController::class, 'index'])->name('iuran.index');
     Route::post('/iuran', [AdminDueController::class, 'store'])->name('iuran.store');

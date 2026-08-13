@@ -45,10 +45,11 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     @if($complaint->photo)
-                                        <a href="{{ asset('storage/' . $complaint->photo) }}" target="_blank">
-                                            <img src="{{ asset('storage/' . $complaint->photo) }}"
-                                                class="w-16 h-16 object-cover rounded-lg border border-slate-200 hover:opacity-80 transition-opacity"
-                                                alt="Foto">
+                                        <a href="{{ $complaint->photo }}" target="_blank" class="block">
+                                            <img src="{{ $complaint->photo }}"
+                                                class="w-16 h-16 object-cover rounded-lg border border-slate-200 hover:opacity-80 transition-opacity cursor-pointer"
+                                                alt="Foto Bukti"
+                                                onerror="this.parentElement.innerHTML='<span class=\'text-slate-400 text-xs\'>Gagal memuat</span>'">
                                         </a>
                                     @else
                                         <span class="text-slate-400 text-xs">Tidak ada</span>

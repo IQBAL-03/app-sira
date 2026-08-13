@@ -19,7 +19,7 @@ class ComplaintController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:2000',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:102400',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
         ]);
 
         $photoPath = null;

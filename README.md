@@ -100,19 +100,35 @@ MAIL_FROM_ADDRESS=noreply@sira.test
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
-6. **Jalankan Migration dan Seeder**
+6. **Konfigurasi Cloudinary (untuk upload gambar)**
+
+Aplikasi ini menggunakan Cloudinary untuk menyimpan gambar (required untuk Vercel deployment).
+
+Daftar gratis di: https://cloudinary.com/users/register_free
+
+Tambahkan credentials ke `.env`:
+```env
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+CLOUDINARY_SECURE=true
+```
+
+📖 **Panduan lengkap:** Lihat file `CLOUDINARY_SETUP.md`
+
+7. **Jalankan Migration dan Seeder**
 ```bash
 php artisan migrate --seed
 ```
 
-7. **Build Assets**
+8. **Build Assets**
 ```bash
 npm run build
 # atau untuk development
 npm run dev
 ```
 
-8. **Jalankan Server**
+9. **Jalankan Server**
 ```bash
 php artisan serve
 ```
@@ -201,17 +217,64 @@ Aplikasi ini dapat di-deploy ke:
 
 ### Deploy ke Vercel
 
-1. Pastikan Anda sudah install Vercel CLI
+1. Pastikan semua code sudah di-commit ke GitHub
 ```bash
-npm i -g vercel
+git add .
+git commit -m "Prepare for deployment"
+git push origin main
 ```
 
-2. Deploy
-```bash
-vercel
+2. Import project di Vercel:
+   - Login ke https://vercel.com
+   - Klik **Add New** → **Project**
+   - Import dari GitHub repository
+   - Pilih repository `app-sira`
+
+3. **Set Environment Variables** (PENTING!):
+
+Sebelum deploy, tambahkan semua environment variables di **Settings** → **Environment Variables**:
+
+```
+APP_KEY=base64:xxx... (generate dengan: php artisan key:generate --show)
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://your-domain.vercel.app
+
+DB_CONNECTION=mysql
+DB_HOST=your-database-host
+DB_PORT=your-database-port
+DB_DATABASE=your-database-name
+DB_USERNAME=your-database-username
+DB_PASSWORD=your-database-password
+
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+CLOUDINARY_SECURE=true
+
+MAIL_MAILER=smtp
+MAIL_HOST=your-mail-host
+MAIL_PORT=587
+MAIL_USERNAME=your-mail-username
+MAIL_PASSWORD=your-mail-password
+MAIL_ENCRYPTION=tls
 ```
 
-3. Set environment variables di Vercel dashboard
+📖 **Panduan lengkap Cloudinary:** Lihat file `CLOUDINARY_SETUP.md`
+🔒 **Panduan keamanan:** Lihat file `.env.security-guide.md`
+
+4. Klik **Deploy** dan tunggu proses selesai
+
+5. Setelah deploy berhasil, jalankan migration dari local:
+```bash
+# Set DATABASE_URL dari Vercel
+php artisan migrate --force
+```
+
+**⚠️ PENTING untuk Vercel:**
+- File upload **HARUS** menggunakan Cloudinary (bukan local storage)
+- Vercel menggunakan read-only filesystem
+- Jangan simpan file ke `storage/` atau `public/` di production
 
 ## Kontribusi
 

@@ -25,14 +25,40 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Foto Bukti (Opsional)</label>
-                            <input type="file" name="photo" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100 transition-all"/>
-                            <p class="text-xs text-slate-400 mt-1">Maks. 100MB (JPG, PNG, WEBP)</p>
+                            <input type="file" id="photo" name="photo" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100 transition-all"/>
+                            <p class="text-xs text-slate-400 mt-1">Gambar dikompres otomatis sebelum dikirim.</p>
                             <x-input-error :messages="$errors->get('photo')" class="mt-1" />
                         </div>
                         <x-primary-button class="w-full justify-center">Kirim Laporan</x-primary-button>
                     </form>
                 </div>
             </div>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js"></script>
+            <script>
+                document.getElementById('photo')?.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (!file || !file.type.startsWith('image/')) return;
+
+                    new Compressor(file, {
+                        quality: 0.6,
+                        maxWidth: 1920,
+                        maxHeight: 1920,
+                        success(result) {
+                            const dataTransfer = new DataTransfer();
+                            const compressedFile = new File([result], file.name, {
+                                type: result.type,
+                                lastModified: Date.now()
+                            });
+                            dataTransfer.items.add(compressedFile);
+                            e.target.files = dataTransfer.files;
+                        },
+                        error(err) {
+                            console.error(err.message);
+                        }
+                    });
+                });
+            </script>
 
             <div class="lg:col-span-2 space-y-4">
                 <h4 class="font-semibold text-slate-800 px-1">Feed Pengaduan Saya</h4>

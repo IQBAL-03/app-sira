@@ -26,7 +26,7 @@
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Foto Bukti (Opsional)</label>
                             <input type="file" name="photo" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100 transition-all"/>
-                            <p class="text-xs text-slate-400 mt-1">Maks. 10MB (JPG, PNG, WEBP)</p>
+                            <p class="text-xs text-slate-400 mt-1">Maks. 2MB (JPG, PNG, WEBP)</p>
                             <x-input-error :messages="$errors->get('photo')" class="mt-1" />
                         </div>
                         <x-primary-button class="w-full justify-center">Kirim Laporan</x-primary-button>

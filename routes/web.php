@@ -27,6 +27,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/warga', [WargaController::class, 'index'])->name('warga.index');
+    Route::get('/warga/{user}/edit', [WargaController::class, 'edit'])->name('warga.edit');
+    Route::patch('/warga/{user}', [WargaController::class, 'update'])->name('warga.update');
     Route::patch('/warga/{user}/verify', [WargaController::class, 'verify'])->name('warga.verify');
     Route::delete('/warga/{user}', [WargaController::class, 'destroy'])->name('warga.destroy');
 

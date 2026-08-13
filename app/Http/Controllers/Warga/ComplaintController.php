@@ -27,7 +27,7 @@ class ComplaintController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:2000',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ], [
             'title.required' => 'Judul pengaduan wajib diisi.',
             'title.max' => 'Judul maksimal 255 karakter.',
@@ -35,7 +35,7 @@ class ComplaintController extends Controller
             'description.max' => 'Deskripsi maksimal 2000 karakter.',
             'photo.image' => 'File harus berupa gambar.',
             'photo.mimes' => 'Format gambar harus: jpeg, png, jpg, atau webp.',
-            'photo.max' => 'Ukuran gambar maksimal 10MB.',
+            'photo.max' => 'Ukuran gambar maksimal 2MB.',
         ]);
 
         $photoUrl = null;

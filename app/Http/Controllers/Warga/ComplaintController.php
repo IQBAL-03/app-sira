@@ -39,14 +39,20 @@ class ComplaintController extends Controller
         ]);
 
         $photoUrl = null;
+        
         if ($request->hasFile('photo')) {
+            // Check if Cloudinary is configured
+            if (!$this->cloudinary->isEnabled()) {
+                return back()->with('error', 'Upload gambar saat ini tidak tersedia. Silakan hubungi administrator.')->withInput();
+            }
+
             // Upload ke Cloudinary
             $upload = $this->cloudinary->upload($request->file('photo'), 'sira/complaints');
             
             if ($upload['success']) {
                 $photoUrl = $upload['url'];
             } else {
-                return back()->with('error', 'Gagal upload gambar: ' . $upload['error'])->withInput();
+                return back()->with('error', $upload['error'])->withInput();
             }
         }
 

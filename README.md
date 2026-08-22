@@ -287,7 +287,3 @@ Aplikasi ini menggunakan framework Laravel yang berlisensi [MIT license](https:/
 ## Kontak & Support
 
 Jika Anda memiliki pertanyaan atau butuh bantuan, silakan buat issue di repository ini.
-
----
-
-**Dibuat dengan ❤️ menggunakan Laravel & TailwindCSS**
